@@ -31,7 +31,7 @@ def signup_processing(request):
 
     try: profile.save()
     except IntegrityError: raise Http404('This username or password is already taken')
-    context = {'appname': appname}
+    context = {'appname': appname,'logIn':True}
     return render(request, 'gymtracker/home.html', context)
 
 def signin(request):
