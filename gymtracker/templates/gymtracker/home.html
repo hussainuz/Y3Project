@@ -1,0 +1,12 @@
+{% extends 'gymtracker/base.html'%}
+{% block content %}
+
+    <h1 class="heading display-5 text-center">{{appname}} Homepage</h1>
+
+    <div class="d-grid gap-2" >
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/add_workout'">Add Workout</button>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/record'">Record</button>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/friends'">Followings</button>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/tutorials'">Tutorials</button>
+    </div>
+{% endblock %}

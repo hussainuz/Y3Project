@@ -1,0 +1,17 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p class="subhead">Add Workout</p>
+
+<form method="POST" action="{% url 'add_workout_processing' %}">
+    {% csrf_token %}
+        <div class="form-group">
+            <label for="workout_name">Workout Name</label>
+            <input type="text" id="workout" class="form-control" name="workout_name" >
+        </div>
+        <button type="submit" name="continue" class="btn btn-primary">Continue</button>
+        <button type="submit" name="save" class="btn btn-primary">Save</button>
+        
+</form>
+
+{% endblock %}

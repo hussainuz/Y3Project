@@ -1,0 +1,34 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p class="subhead">Workouts</p>
+<table class="table table-striped align-middle">
+{% if workouts|length > 0 %}
+<tr><th>Name</th><th>Date/Time</th><th colspan="3"></th></tr>
+{% endif %}
+{% for w in workouts %}
+    <tr>
+        <td>{{w.name}}</td>
+        <td>{{w.datetime_added}}</td>
+        <td><form method="POST" action="{% url 'view_workout' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="view{{ w.pk }}" class="form-control" name="wpk" value="{{ w.pk }}" >
+                <button type="submit" name="view" class="btn btn-secondary btn-sm">View Exercises</button>
+        </form></td>
+        <td><form method="POST" action="{% url 'edit_workout' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="edit{{ w.pk }}" class="form-control" name="wpk" value="{{ w.pk }}" >
+                <button type="submit" name="edit" class="btn btn-secondary btn-sm">Edit Workout</button>
+        </form></td>
+        <td><form method="POST" action="{% url 'delete_workout' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="del{{ w.pk }}" class="form-control" name="wpk" value="{{ w.pk }}" >
+                <button type="submit" name="delete" class="btn btn-secondary btn-sm">Delete Workout</button>
+        </form></td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

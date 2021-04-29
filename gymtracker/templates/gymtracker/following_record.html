@@ -1,0 +1,22 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p class="subhead">Followings Workouts</p>
+<table class="table table-striped align-middle">
+{% if fworkouts|length > 0 %}
+<tr><th>Name</th><th>Date/Time</th><th></th></tr>
+{% endif %}
+{% for w in fworkouts %}
+    <tr>
+        <td>{{w.name}}</td>
+        <td>{{w.datetime_added}}</td>
+        <td><form method="POST" action="{% url 'view_following_workout' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="view{{ w.pk }}" class="form-control" name="wpk" value="{{ w.pk }}" >
+                <button type="submit" name="view" class="btn btn-secondary">View Exercises</button>
+        </form></td>
+    </tr>
+{% endfor %}
+
+{% endblock %}

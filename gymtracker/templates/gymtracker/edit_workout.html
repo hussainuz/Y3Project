@@ -1,0 +1,13 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p>Edit Workout</p>
+<form method="POST" action="{% url 'edit_workout_processing' %}">
+    {% csrf_token %}
+        <div class="form-group">
+            <input type="hidden" id="{{ workout.pk }}" class="form-control" name="wpk" value="{{ workout.pk }}" >
+            <input type="text" id="workout" class="form-control" name="workout" placeholder="{{workout.name}}">
+        </div>
+        <button type="submit" name="update" class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

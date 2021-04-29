@@ -1,0 +1,42 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p class="subhead">Exercise in {{workout.name}}</p>
+
+<table class="table table-striped align-middle">
+    <tr><td colspan="5"><form method="POST" action="{% url 'add_exercise_later' %}">
+        {% csrf_token %}
+        <input type="hidden" id="{{ workout.pk }}" class="form-control" name="wpk" value="{{ workout.pk }}" >
+        <button type="submit" name="addExecise" class="btn btn-secondary">Add Exercise</button>
+    </form></td></tr>
+{% if exercises|length > 0 %}
+<tr><th>Name</th><th>Date/Time</th><th colspan="3"></th></tr>
+{% endif %}
+{% for e in exercises %}
+    <tr>
+        <td>{{e.name}}</td>
+        <td>{{e.created_at}}</td>
+        <td><form method="POST" action="{% url 'view_exercise' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="view{{ e.pk }}" class="form-control" name="epk" value="{{ e.pk }}" >
+                <button type="submit" name="continue" class="btn btn-secondary">View Sets</button>
+        </form></td>
+        <td><form method="POST" action="{% url 'edit_exercise' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="edit{{ workout.pk }}" class="form-control" name="wpk" value="{{ workout.pk }}" >
+                <input type="hidden" id="edit{{ e.pk }}" class="form-control" name="epk" value="{{ e.pk }}" >
+                <button type="submit" name="edit" class="btn btn-secondary">Edit Exercise</button>
+        </form></td>
+        <td><form method="POST" action="{% url 'delete_exercise' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="del{{ e.pk }}" class="form-control" name="epk" value="{{ e.pk }}" >
+                <input type="hidden" id="work{{ workout.pk }}" class="form-control" name="workout" value="{{ workout.pk }}" >
+                <button type="submit" name="continue" class="btn btn-secondary">Delete Exercise</button>
+        </form></td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

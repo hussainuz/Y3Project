@@ -1,0 +1,23 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p>Edit Exercise in {{workout.name}}</p>
+<form method="POST" action="{% url 'edit_exercise_processing' %}">
+    {% csrf_token %}
+        <div class="form-group">
+            <input type="hidden" id="{{ exercise.pk }}" class="form-control" name="epk" value="{{ exercise.pk }}" >
+            <input type="hidden" id="edit{{ workout.pk }}" class="form-control" name="wpk" value="{{ workout.pk }}" >
+            
+            <select id="exercise" class="form-select" name="exercise" >
+                {% for e in exercises %}
+                    {% if e.name == exercise.name %}
+                    <option selected="selected" value="{{e.name}}">{{e.name}}</option>
+                    {% else %}
+                    <option value="{{e.name}}">{{e.name}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" name="update" class="btn btn-primary">Update Exercise</button>
+</form>
+{% endblock %}

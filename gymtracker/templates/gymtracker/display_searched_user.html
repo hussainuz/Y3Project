@@ -1,0 +1,37 @@
+{% extends 'gymtracker/search_friend.html' %}
+{% block friend %}
+
+<div>
+    {% if friend == None %}
+        <p>This user doesn't exist </p>
+    {% else%}
+        <p>You have searched for {{ friend.first_name }} {{ friend.last_name }}</p>
+        
+        <table class="table table-striped align-middle">
+            <tr><th colspan="2">Name</th></tr>
+                <tr>
+                    <td>{{friend.first_name}} {{friend.last_name}}</td>
+                    <td>
+                        {% if isFollowing == False %}
+                            <form method="POST" action="{% url 'add_friend' %}">
+                                {% csrf_token %}
+                                <input type="hidden" id="fpk" class="form-control" name="fpk" value="{{ friend.pk }}" >
+                                <button type="submit" class="btn btn-primary">Follow</button>
+                            </form>
+                        {% else%}
+                            <form method="POST" action="{% url 'remove_friend' %}">
+                                {% csrf_token %}
+                                <input type="hidden" id="fpk" class="form-control" name="fpk" value="{{ friend.pk }}" >
+                                <button type="submit" class="btn btn-danger">Unfollow</button>
+                            </form>
+                        {% endif %}
+                    </td>
+        
+        </table>
+
+        
+    {% endif %}
+
+</div>
+
+{% endblock %}

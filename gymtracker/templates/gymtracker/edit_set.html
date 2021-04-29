@@ -1,0 +1,16 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p>Edit Set in {{exercise.name}}</p>
+<form method="POST" action="{% url 'edit_set_processing' %}">
+    {% csrf_token %}
+        <div class="form-group">
+            <input type="hidden" id="{{ set.pk }}" class="form-control" name="spk" value="{{ set.pk }}" >
+            <input type="hidden" id="edit{{ exercise.pk }}" class="form-control" name="epk" value="{{ exercise.pk }}" >
+            <input type="text" id="set_no" class="form-control" name="set_no" value="{{set.set_no}}">
+            <input type="text" id="reps" class="form-control" name="reps" value="{{set.reps}}">
+            <input type="text" id="weight" class="form-control" name="weight" value="{{set.weight}}">
+        </div>
+        <button type="submit" name="update" class="btn btn-primary">Update Set</button>
+</form>
+{% endblock %}

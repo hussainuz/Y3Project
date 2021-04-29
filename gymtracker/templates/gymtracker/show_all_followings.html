@@ -1,0 +1,31 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+<h1 class="display-4 text-center">Followings</h1>
+<p class="subhead">All users that you follow</p>
+<table class="table table-striped align-middle">
+    {% if followings|length > 0 %}
+    <tr><th>First Name</th><th colspan="3">Surname</th></tr>
+    {% endif %}
+    {% for f in followings %}
+
+        <tr>
+            <td>{{f.first_name}}</td>
+            <td>{{f.last_name}}</td>
+            <td>
+                <form method="POST" action="{% url 'following_record' %}">
+                    {% csrf_token %}
+                    <input type="hidden" id="fpk{{f.pk}}" class="form-control" name="fpk" value="{{ f.pk }}" >
+                    <button type="submit" class="btn btn-secondary">Records</button>
+                </form>
+            </td>
+            <td>
+                <form method="POST" action="{% url 'remove_friend_2' %}">
+                    {% csrf_token %}
+                    <input type="hidden" id="fpk{{f.pk}}" class="form-control" name="fpk" value="{{ f.pk }}" >
+                    <button type="submit" class="btn btn-danger">Unfollow</button>
+                </form>
+            </td>
+    {% endfor %}
+
+</table>
+{% endblock %}

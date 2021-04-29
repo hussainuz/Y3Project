@@ -1,0 +1,17 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<h1 class="display-5 text-center">Followings</h1>
+
+<div class="d-grid gap-2" >
+    <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/search_friend'">Search User</button>
+    <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/show_all_followings'">View Followings</button>
+</div>
+
+<div></div>
+    {% block friend %}
+    {% endblock %}
+</div>
+
+
+{% endblock %}

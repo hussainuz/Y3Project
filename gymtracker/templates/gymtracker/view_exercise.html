@@ -1,0 +1,42 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p class="subhead">Sets for {{exercise.name}}</p>
+<table class="table table-striped align-middle">
+<tr><td colspan="6"><form method="POST" action="{% url 'add_set_later' %}">
+    {% csrf_token %}
+    <input type="hidden" id="{{ exercise.pk }}" class="form-control" name="epk" value="{{ exercise.pk }}" >
+    <button type="submit" name="addSet" class="btn btn-secondary">Add Set</button>
+</form></td></tr>
+
+{% if sets|length > 0 %}
+<tr><th>Set Number</th>
+    <th >Reps</th>
+    <th>Weight</th>
+    <th>Date/Time</th>
+    <th colspan="2"></th></tr>
+{% endif %}
+{% for s in sets %}
+    <tr>
+        <td>{{s.set_no}}</td>
+        <td>{{s.reps}}</td>
+        <td>{{s.weight}}kg</td>
+        <td>{{s.created_at}}</td>
+        <td><form method="POST" action="{% url 'edit_set' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="edit{{ exercise.pk }}" class="form-control" name="epk" value="{{ exercise.pk }}" >
+                <input type="hidden" id="edit{{ s.pk }}" class="form-control" name="spk" value="{{ s.pk }}" >
+                <button type="submit" name="edit" class="btn btn-secondary">Edit Set</button>
+        </form></td>
+        <td><form method="POST" action="{% url 'delete_set' %}">
+            {% csrf_token %}
+                <div class="form-group">
+                <input type="hidden" id="del{{ s.pk }}" class="form-control" name="spk" value="{{ s.pk }}" >
+                <input type="hidden" id="ex{{ exercise.pk }}" class="form-control" name="exercise" value="{{ exercise.pk }}" >
+                <button type="submit" name="continue" class="btn btn-secondary">Delete Set</button>
+        </form></td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

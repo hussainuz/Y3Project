@@ -1,0 +1,21 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+
+<p class="subhead">Add Exercise</p>
+
+<form method="POST" action="{% url 'add_exercise_processing' %}">
+    {% csrf_token %}
+        <div class="form-group">
+            <label for="tutorials">Select an Exercise</label>
+            <select id="exercise" class="form-select" name="exercise_name" >
+                {% for e in exercises %}
+                <option value="{{e.name}}">{{e.name}}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" id="wpk" class="form-control" name="wpk" value="{{ workout.pk }}" >
+        </div>
+        <button type="submit" name="continue" class="btn btn-primary">Continue</button>
+        <button type="submit" name="save" class="btn btn-primary">Save</button>
+</form>
+
+{% endblock %}

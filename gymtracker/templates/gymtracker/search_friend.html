@@ -1,0 +1,18 @@
+{% extends 'gymtracker/base.html' %}
+{% block content %}
+<h1 class="display-4 text-center">Search User</h1>
+<p class="subhead">Hello {{ profile.username|title }}</p>
+
+    <form method="POST" action="{% url 'display_searched_user' %}">
+    {% csrf_token %}
+        <div class="form-group">
+            <label for="user">Search</label>
+            <input type="text" id="user" class="form-control" placeholder="Enter friend's username" name="username" >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    {% block friend %}
+    {% endblock %}
+
+{% endblock %}
