@@ -132,7 +132,7 @@ def add_friend(request, profile):
             pass
         else:
             Following.objects.create(current_user=current_user, following_user=friend)
-        context.update({'profile': profile, 'logIn': True, 'friend': friend})
+        context.update({'profile': profile, 'logIn': True, 'friend': friend, 'status':"Followed"})
         return render(request, 'gymtracker/add_friend.html', context)
 
 @verify_loggedin
