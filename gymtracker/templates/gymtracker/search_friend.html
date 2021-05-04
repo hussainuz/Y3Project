@@ -1,7 +1,6 @@
 {% extends 'gymtracker/base.html' %}
 {% block content %}
 <h1 class="display-4 text-center">Search User</h1>
-<p class="subhead">Hello {{ profile.username|title }}</p>
 
     <form method="POST" action="{% url 'display_searched_user' %}">
     {% csrf_token %}
